@@ -677,6 +677,214 @@
   transform: translateY(-2px);
 }
 
+/* Sailing Simulator Page Styles */
+.sailing-sim-btn {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+}
+
+.sailing-sim-page .page-header {
+  position: relative;
+}
+
+.boat-info {
+  position: absolute;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-style: italic;
+}
+
+.sim-container {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 2rem;
+  height: calc(100vh - 120px);
+}
+
+.map-container {
+  position: relative;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+}
+
+.map-area {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: linear-gradient(135deg, #4a90e2, #357abd);
+  background-image: radial-gradient(
+      circle at 25% 25%,
+      rgba(255, 255, 255, 0.1) 2px,
+      transparent 2px
+    ),
+    radial-gradient(
+      circle at 75% 75%,
+      rgba(255, 255, 255, 0.1) 2px,
+      transparent 2px
+    );
+  background-size: 50px 50px;
+  cursor: crosshair;
+}
+
+.boat-marker,
+.destination-marker {
+  position: absolute;
+  font-size: 2rem;
+  cursor: move;
+  z-index: 10;
+  transform: translate(-50%, -50%);
+  transition: transform 0.2s ease;
+  user-select: none;
+}
+
+.boat-marker:hover,
+.destination-marker:hover {
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+.boat-marker {
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8));
+}
+
+.destination-marker {
+  filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.8));
+}
+
+.center-boat-btn {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+  border: none;
+  font-size: 1.5rem;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.center-boat-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+.control-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.position-controls,
+.wind-controls,
+.sailing-data {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.position-group,
+.wind-group {
+  margin-bottom: 1.5rem;
+}
+
+.position-group:last-child,
+.wind-group:last-child {
+  margin-bottom: 0;
+}
+
+.position-group h3,
+.wind-group h3,
+.sailing-data h3 {
+  margin: 0 0 1rem 0;
+  color: #ffd700;
+  font-size: 1.2rem;
+}
+
+.coordinate-inputs,
+.wind-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.coord-input,
+.wind-input {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.coord-input label,
+.wind-input label {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.9rem;
+  min-width: 80px;
+}
+
+.coord-input input,
+.wind-input input,
+.wind-input select {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  padding: 0.5rem;
+  color: white;
+  font-size: 0.9rem;
+  width: 120px;
+}
+
+.coord-input input:focus,
+.wind-input input:focus,
+.wind-input select:focus {
+  outline: none;
+  border-color: #4ecdc4;
+  box-shadow: 0 0 0 2px rgba(78, 205, 196, 0.2);
+}
+
+.wind-input select option {
+  background: #1e3c72;
+  color: white;
+}
+
+.data-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.8rem;
+}
+
+.data-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.data-label {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.9rem;
+}
+
+.data-value {
+  color: #4ecdc4;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
   .sailing-scene {
@@ -752,5 +960,60 @@
   .action-btn {
     min-width: 50px;
     padding: 0.6rem;
+  }
+}
+
+/* Responsive Design for Sailing Sim */
+@media (max-width: 1024px) {
+  .sim-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto;
+    height: auto;
+  }
+
+  .map-container {
+    height: 400px;
+  }
+
+  .boat-info {
+    position: static;
+    transform: none;
+    margin-top: 0.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .coordinate-inputs,
+  .wind-inputs {
+    gap: 0.5rem;
+  }
+
+  .coord-input,
+  .wind-input {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .coord-input input,
+  .wind-input input,
+  .wind-input select {
+    width: 100%;
+  }
+
+  .data-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+
+  .boat-marker,
+  .destination-marker {
+    font-size: 1.5rem;
+  }
+
+  .center-boat-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
   }
 }
