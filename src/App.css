@@ -3,46 +3,226 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-}
-
-.App-header {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  padding: 2rem;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: white;
+  background: linear-gradient(135deg, #87ceeb 0%, #4682b4 50%, #1e3c72 100%);
+  overflow-x: hidden;
   position: relative;
 }
 
-.sail-icon {
-  font-size: 4rem;
-  margin-bottom: 1rem;
-  animation: sail 3s ease-in-out infinite;
+/* Wind flag at the top */
+.wind-flag {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
 }
 
-@keyframes sail {
+.flag-pole {
+  width: 3px;
+  height: 60px;
+  background: #8b4513;
+  position: relative;
+}
+
+.flag {
+  width: 40px;
+  height: 25px;
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+  position: absolute;
+  top: 0;
+  left: 3px;
+  border-radius: 0 5px 5px 0;
+  animation: flagWave 2s ease-in-out infinite;
+  transform-origin: left center;
+}
+
+@keyframes flagWave {
   0%,
   100% {
-    transform: translateX(0) rotate(0deg);
+    transform: rotate(0deg) scaleX(1);
   }
   50% {
-    transform: translateX(10px) rotate(5deg);
+    transform: rotate(5deg) scaleX(0.9);
   }
 }
 
-.App-header h1 {
-  font-size: 3rem;
+/* Animated ocean waves */
+.ocean {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(
+    to bottom,
+    rgba(30, 144, 255, 0.8),
+    rgba(0, 100, 200, 0.9)
+  );
+  overflow: hidden;
+}
+
+.wave {
+  position: absolute;
+  bottom: 0;
+  width: 200%;
+  height: 100%;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><path d="M0,10 Q25,0 50,10 T100,10 V20 H0 Z" fill="%23ffffff" opacity="0.3"/></svg>');
+  background-size: 50px 20px;
+  animation: waveMove 10s linear infinite;
+}
+
+.wave1 {
+  animation-duration: 8s;
+  opacity: 0.4;
+}
+
+.wave2 {
+  animation-duration: 12s;
+  opacity: 0.3;
+  animation-delay: -2s;
+}
+
+.wave3 {
+  animation-duration: 15s;
+  opacity: 0.2;
+  animation-delay: -4s;
+}
+
+@keyframes waveMove {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50px);
+  }
+}
+
+/* Main sailing scene */
+.sailing-scene {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  position: relative;
+  z-index: 10;
+}
+
+/* Colorful sailboat */
+.sailboat {
+  position: relative;
+  margin-bottom: 2rem;
+  animation: sailBob 4s ease-in-out infinite;
+}
+
+@keyframes sailBob {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(2deg);
+  }
+}
+
+.hull {
+  width: 120px;
+  height: 30px;
+  background: linear-gradient(45deg, #8b4513, #d2691e);
+  border-radius: 60px 60px 20px 20px;
+  position: relative;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.hull::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 10px;
+  background: #654321;
+  border-radius: 50%;
+}
+
+.mast {
+  width: 4px;
+  height: 150px;
+  background: linear-gradient(to bottom, #8b4513, #a0522d);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 25px;
+  border-radius: 2px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.main-sail {
+  width: 80px;
+  height: 100px;
+  background: linear-gradient(135deg, #ff6b6b, #ff8e53, #ff6b6b);
+  position: absolute;
+  right: -2px;
+  bottom: 40px;
+  border-radius: 0 20px 20px 0;
+  animation: sailFlutter 3s ease-in-out infinite;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.jib-sail {
+  width: 50px;
+  height: 70px;
+  background: linear-gradient(135deg, #4ecdc4, #44a08d);
+  position: absolute;
+  left: -2px;
+  bottom: 60px;
+  border-radius: 20px 0 0 20px;
+  animation: sailFlutter 3s ease-in-out infinite 0.5s;
+  box-shadow: -3px 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.mast-flag {
+  width: 20px;
+  height: 15px;
+  background: linear-gradient(45deg, #ffd700, #ffa500);
+  position: absolute;
+  left: 4px;
+  top: -5px;
+  border-radius: 0 3px 3px 0;
+  animation: flagWave 2s ease-in-out infinite;
+  transform-origin: left center;
+}
+
+@keyframes sailFlutter {
+  0%,
+  100% {
+    transform: scaleX(1);
+  }
+  50% {
+    transform: scaleX(0.95);
+  }
+}
+
+/* Welcome content */
+.welcome-content {
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.app-title {
+  font-size: 3.5rem;
   margin: 0.5rem 0;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(45deg, #ffd700, #ffa500, #ff6b6b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: bold;
+  text-shadow: none;
 }
 
 .welcome-text {
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem;
   opacity: 0.9;
 }
 
@@ -54,27 +234,31 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  border-radius: 25px;
+  padding: 0.8rem 1.5rem;
+  border-radius: 30px;
   font-weight: 600;
   text-transform: uppercase;
   font-size: 0.9rem;
   letter-spacing: 1px;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
 .status.online {
-  background: rgba(76, 175, 80, 0.2);
-  border: 2px solid #4caf50;
+  background: rgba(76, 175, 80, 0.3);
+  border-color: #4caf50;
+  color: #4caf50;
 }
 
 .status.offline {
-  background: rgba(244, 67, 54, 0.2);
-  border: 2px solid #f44336;
+  background: rgba(244, 67, 54, 0.3);
+  border-color: #f44336;
+  color: #f44336;
 }
 
 .status-dot {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   animation: pulse 2s infinite;
 }
@@ -90,17 +274,20 @@
 @keyframes pulse {
   0% {
     opacity: 1;
+    transform: scale(1);
   }
   50% {
-    opacity: 0.5;
+    opacity: 0.7;
+    transform: scale(1.1);
   }
   100% {
     opacity: 1;
+    transform: scale(1);
   }
 }
 
 .install-button {
-  background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
   border: none;
   padding: 1rem 2rem;
   border-radius: 50px;
@@ -109,64 +296,461 @@
   font-weight: 600;
   cursor: pointer;
   margin: 1rem 0;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 1px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
 }
 
 .install-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
-.features {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-  margin-top: 2rem;
-  max-width: 900px;
-  width: 100%;
+.install-button:active {
+  transform: translateY(-1px);
 }
 
-.feature-card {
+/* Cool action buttons at the bottom */
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1.5rem;
   background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  z-index: 20;
+}
+
+.action-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.action-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: inherit;
+  filter: brightness(1.2);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.action-btn:hover::before {
+  opacity: 1;
+}
+
+.action-btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.action-btn:active {
+  transform: translateY(-2px);
+}
+
+.weather-btn {
+  background: linear-gradient(135deg, #ffd700, #ffa500);
+  color: white;
+}
+
+.navigation-btn {
+  background: linear-gradient(135deg, #4ecdc4, #44a08d);
+  color: white;
+}
+
+.charts-btn {
+  background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+  color: white;
+}
+
+.logbook-btn {
+  background: linear-gradient(135deg, #a8e6cf, #7fcdcd);
+  color: white;
+}
+
+.btn-icon {
+  font-size: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.btn-text {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Page Styles */
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #87ceeb 0%, #4682b4 50%, #1e3c72 100%);
+  color: white;
+  overflow-y: auto;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.back-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-right: 1rem;
+  transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateX(-3px);
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 2rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.page-content {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Weather Page Styles */
+.weather-card,
+.nav-card,
+.chart-card,
+.logbook-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 15px;
   padding: 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
   transition: transform 0.3s ease;
 }
 
-.feature-card:hover {
+.weather-card:hover,
+.nav-card:hover,
+.chart-card:hover,
+.logbook-card:hover {
   transform: translateY(-5px);
 }
 
-.feature-card h3 {
-  margin: 0 0 0.5rem 0;
-  font-size: 1.3rem;
+.weather-card h2,
+.nav-card h2,
+.chart-card h2,
+.logbook-card h2 {
+  margin: 0 0 1rem 0;
+  font-size: 1.5rem;
+  color: #ffd700;
 }
 
-.feature-card p {
-  margin: 0;
+.weather-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.temp {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #ff6b6b;
+}
+
+.condition {
+  font-size: 1.2rem;
   opacity: 0.9;
-  line-height: 1.5;
 }
 
+.wind-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.wind-speed {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #4ecdc4;
+}
+
+.wind-direction {
+  font-size: 1.5rem;
+  color: #ffa500;
+}
+
+.forecast p {
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+/* Navigation Page Styles */
+.coordinates {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.coordinates div {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #4ecdc4;
+}
+
+.course-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.course,
+.speed {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #ffd700;
+}
+
+.waypoint div {
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+  color: #ff6b6b;
+}
+
+/* Charts Page Styles */
+.chart-placeholder {
+  text-align: center;
+  padding: 2rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  margin: 1rem 0;
+}
+
+.map-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.chart-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.chart-item {
+  padding: 0.8rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.chart-item:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.tide-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tide-info div {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #4ecdc4;
+}
+
+/* Logbook Page Styles */
+.trip-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+  text-align: center;
+}
+
+.trip-info div {
+  padding: 0.8rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  font-weight: bold;
+  color: #ffd700;
+}
+
+.log-entries {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.log-entry {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+.log-time {
+  font-weight: bold;
+  color: #4ecdc4;
+  min-width: 60px;
+}
+
+.log-text {
+  flex: 1;
+  opacity: 0.9;
+}
+
+.quick-entry {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.log-input {
+  flex: 1;
+  padding: 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 1rem;
+}
+
+.log-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.log-btn {
+  padding: 0.8rem 1.5rem;
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.log-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* Responsive design */
 @media (max-width: 768px) {
-  .App-header {
+  .sailing-scene {
     padding: 1rem;
   }
 
-  .App-header h1 {
+  .app-title {
+    font-size: 2.5rem;
+  }
+
+  .sailboat {
+    transform: scale(0.8);
+  }
+
+  .action-buttons {
+    gap: 0.5rem;
+    padding: 1rem;
+  }
+
+  .action-btn {
+    min-width: 60px;
+    padding: 0.8rem;
+  }
+
+  .btn-icon {
+    font-size: 1.2rem;
+  }
+
+  .btn-text {
+    font-size: 0.7rem;
+  }
+
+  .page-content {
+    padding: 1rem;
+  }
+
+  .weather-info,
+  .wind-info,
+  .course-info,
+  .tide-info {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .trip-info {
+    grid-template-columns: 1fr;
+  }
+
+  .quick-entry {
+    flex-direction: column;
+  }
+
+  .log-input {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-title {
     font-size: 2rem;
   }
 
-  .sail-icon {
-    font-size: 3rem;
+  .sailboat {
+    transform: scale(0.7);
   }
 
-  .features {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+  .action-buttons {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .action-btn {
+    min-width: 50px;
+    padding: 0.6rem;
   }
 }
