@@ -210,3 +210,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ---
 
 **Happy Sailing!** ⛵🌊
+
+## How to Deploy the Build
+
+scp -i "C:\Users\Dan/.ssh/cakeServe" -r "C:\LS\SailPWA\build\*" fire@firecake.us:/opt/containers/caddy/www/SailPWA
